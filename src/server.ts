@@ -16,7 +16,6 @@ try {
     Status: "ONLINE",
     Port: port,
     Redis: 6379,
-    Address: `http://localhost/${port}`,
   };
 
   app.listen(port, () => {

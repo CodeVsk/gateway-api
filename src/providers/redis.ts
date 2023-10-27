@@ -5,7 +5,9 @@ export class RedisProvider {
   private client: RedisClientType;
 
   constructor() {
-    this.client = createClient();
+    this.client = createClient({
+      url: "redis://127.0.0.1:6379",
+    });
 
     this.client.on("error", () => {
       console.error("Erro na conexão com o servidor Redis");

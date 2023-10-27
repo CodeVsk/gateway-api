@@ -18,8 +18,9 @@ export class PokedexService {
 
     const cache = await this.redisProvider.get("species");
 
-    if(!cache){
-      const result: PokedexResult = await this.pokedexProvider.getPokemonSpecies();
+    if (!cache) {
+      const result: PokedexResult =
+        await this.pokedexProvider.getPokemonSpecies();
 
       await this.redisProvider.set("species", JSON.stringify(result));
 
@@ -74,3 +75,8 @@ export class PokedexService {
     return new CompareResult(totalTime, result);
   }
 }
+
+//https://www.themealdb.com/api/json/v1/1/categories.php
+//https://cep.awesomeapi.com.br/json/05424020
+//https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL
+//https://api.hgbrasil.com/weather
