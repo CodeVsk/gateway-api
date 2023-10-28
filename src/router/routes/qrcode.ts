@@ -4,7 +4,7 @@ import { Router } from "express";
 
 export default (router: Router): void => {
   const qrCodeService = new QRCodeService();
-  router.get("/qrcode/:qrcode", async (req, res) => {
+  router.get("/qrcode/nocached/:qrcode", async (req, res) => {
     const response = await qrCodeService.generateQRCodeNoCached(req);
 
     res.send(response);
@@ -12,12 +12,20 @@ export default (router: Router): void => {
 
   /**
    * @swagger
-   * /api/qrcode:
+   * /api/qrcode/nocached/{qrcode}:
    *   get:
-   *     description: Rota responsável por gerar uma imagem qrcode
+   *     summary: Retorna uma imagem do QRCode.
+   *     description: Retorna um imagem do QRCode gerada pela api.
+   *     parameters:
+   *       - in: path
+   *         name: qrcode
+   *         required: true
+   *         description: Insira um valor.
+   *         schema:
+   *           type: string
    *     responses:
-   *       '200':
-   *         description: Resposta de sucesso
+   *       200:
+   *         description: Executado com sucesso.
    *
    */
 };

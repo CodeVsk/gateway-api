@@ -1,11 +1,9 @@
-import { PokedexResult } from "./pokedex-result";
-
 export class CompareResult {
   executionTimer: string;
-  qrcodeResult: any;
+  content: any;
 
-  constructor(timer: string, qrcode: any) {
+  constructor(timer: string, result: any) {
     this.executionTimer = timer;
-    this.qrcodeResult = qrcode;
+    this.content = result;
   }
 }

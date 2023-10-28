@@ -31,28 +31,32 @@ export default (router: Router): void => {
    * @swagger
    * /api/pokedex/cached/pokemons:
    *   get:
-   *     description: Rota com sistema de cache Redis
+   *     summary: Retorna uma lista de pokemons.
+   *     description: Retorna uma lista de pokemons usando o redis.
    *     responses:
    *       '200':
    *         description: Resposta de sucesso
    *
    * /api/pokedex/nocached/pokemons:
    *   get:
-   *     description: Rota sem sistema de cache Redis
+   *     summary: Retorna uma lista de pokemons.
+   *     description: Retorna uma lista de pokemons sem usar redis.
    *     responses:
    *       '200':
    *         description: Resposta de sucesso
    *
    * /api/pokedex/cached/especies:
    *   get:
-   *     description: Rota com sistema de cache Redis
+   *     summary: Retorna uma lista de espécies de pokemon.
+   *     description: Retorna uma lista de espécies de pokemon usando o redis.
    *     responses:
    *       '200':
    *         description: Resposta de sucesso
    *
    * /api/pokedex/nocached/especies:
    *   get:
-   *     description: Rota sem sistema de cache Redis
+   *     summary: Retorna uma lista de espécies de pokemon.
+   *     description: Retorna uma lista de espécies de pokemon sem usar redis.
    *     responses:
    *       '200':
    *         description: Resposta de sucesso
