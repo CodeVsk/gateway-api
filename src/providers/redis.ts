@@ -2,11 +2,12 @@ import { RedisClientType } from "@redis/client";
 import { createClient } from "redis";
 
 export class RedisProvider {
+  private baseUrl: string = "redis://127.0.0.1:6379";
   private client: RedisClientType;
 
   constructor() {
     this.client = createClient({
-      url: "redis://127.0.0.1:6379",
+      url: this.baseUrl,
     });
 
     this.client.on("error", () => {
@@ -22,6 +23,10 @@ export class RedisProvider {
 
   async get(key: string): Promise<string> {
     return await this.client.get(key);
+  }
+
+  getBaseUrl() {
+    return this.baseUrl;
   }
 
   quit() {

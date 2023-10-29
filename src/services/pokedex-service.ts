@@ -16,11 +16,21 @@ export class PokedexService {
   async getPokemonSpeciesCached(): Promise<CompareResult> {
     const startTime: number = Date.now();
 
+    console.log(
+      "Verificando se existe um cache predefinido no servidor redis de endereço:",
+      this.redisProvider.getBaseUrl()
+    );
+
     const cache = await this.redisProvider.get("species");
 
     if (!cache) {
       const result: PokedexResult =
         await this.pokedexProvider.getPokemonSpecies();
+
+      console.log(
+        "Predefinindo chave de cache e armazenando os dados retornados na mesma no servidor redis de endereço:",
+        this.redisProvider.getBaseUrl()
+      );
 
       await this.redisProvider.set("species", JSON.stringify(result));
 
@@ -30,6 +40,11 @@ export class PokedexService {
     }
 
     const totalTime = calculateTime(startTime);
+
+    console.log(
+      "Cache encontrado no servidor redis de endereço:",
+      this.redisProvider.getBaseUrl()
+    );
 
     return new CompareResult(totalTime, await JSON.parse(cache));
   }
@@ -48,10 +63,20 @@ export class PokedexService {
   async getAllPokemonsCached(): Promise<CompareResult> {
     const startTime: number = Date.now();
 
+    console.log(
+      "Verificando se existe um cache predefinido no servidor redis de endereço:",
+      this.redisProvider.getBaseUrl()
+    );
+
     const cache = await this.redisProvider.get("pokemons");
 
     if (!cache) {
       const result: PokedexResult = await this.pokedexProvider.getAllPokemons();
+
+      console.log(
+        "Predefinindo chave de cache e armazenando os dados retornados na mesma no servidor redis de endereço:",
+        this.redisProvider.getBaseUrl()
+      );
 
       await this.redisProvider.set("pokemons", JSON.stringify(result));
 
@@ -61,6 +86,11 @@ export class PokedexService {
     }
 
     const totalTime = calculateTime(startTime);
+
+    console.log(
+      "Cache encontrado no servidor redis de endereço:",
+      this.redisProvider.getBaseUrl()
+    );
 
     return new CompareResult(totalTime, await JSON.parse(cache));
   }

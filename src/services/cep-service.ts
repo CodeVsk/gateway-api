@@ -29,12 +29,22 @@ export class CepService {
   async getInfoByCepCached(request: Request): Promise<CompareResult> {
     const startTime: number = Date.now();
 
+    console.log(
+      "Verificando se existe um cache predefinido no servidor redis de endereço:",
+      this.redisProvider.getBaseUrl()
+    );
+
     const { cep } = request.params;
 
-    const cache = await this.redisProvider.get("info_cep");
+    const cache = await this.redisProvider.get(`info_cep_${cep}`);
 
     if (!cache) {
       const result: CepResult = await this.cepProvider.getInfoByCep(cep);
+
+      console.log(
+        "Predefinindo chave de cache e armazenando os dados retornados na mesma no servidor redis de endereço:",
+        this.redisProvider.getBaseUrl()
+      );
 
       await this.redisProvider.set("info_cep", JSON.stringify(result));
 
@@ -44,6 +54,11 @@ export class CepService {
     }
 
     const totalTime = calculateTime(startTime);
+
+    console.log(
+      "Cache encontrado no servidor redis de endereço:",
+      this.redisProvider.getBaseUrl()
+    );
 
     return new CompareResult(totalTime, await JSON.parse(cache));
   }
